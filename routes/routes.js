@@ -4,12 +4,14 @@ const { register, login, gettoken } = require('../controller/userController')
 const auth = require('../middleware/auth')
 const { createdTickets, updateTicket, getallticket, deleteticket } = require('../controller/ticketController')
 const rabc=require('../middleware/rabc')
+const { decodeToken } = require('../utlis/jwt')
 const api=express.Router()
 
 
 // User 
 
 api.post("/register",register)
+// api.get("/gettoken",auth.authorization,decodeToken,gettoken)
 api.get("/gettoken",auth.authorization,gettoken)
 api.post('/login',login)
 

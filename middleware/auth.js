@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { decodeToken } = require('../utlis/jwt');
 
 
 const authorization=async(req,res,next)=>{
@@ -16,7 +17,7 @@ const authorization=async(req,res,next)=>{
 
   
         try {
-            const decoded=jwt.verify(token,process.env.JWT_SECRET)
+            const decoded=decodeToken(token,process.env.JWT_SECRET)
             console.log(decoded);
             
             req.user=decoded

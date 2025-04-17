@@ -1,6 +1,11 @@
-const {User} = require('../models');
+const { User } = require('../models');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+const { createAccesstoken } = require('../utlis/jwt');
+
+
+
+
 
 
 exports.register = async (req, res) => {
@@ -22,7 +27,7 @@ exports.login = async (req, res) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
           return res.status(401).json({ error: 'Invalid credentials' });
         }
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+        const token =createAccesstoken(user)
         res.json({ token });
     } catch (error) {
         return res.status(400).json({error:error.message})
