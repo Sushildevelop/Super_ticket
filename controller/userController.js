@@ -37,8 +37,11 @@ exports.login = async (req, res) => {
 
  exports.gettoken=async(req,res)=>{
     try {
-        const gettok=await User.findAll()
-        return res.status(200).json(gettok)
+        const id = req.user.id;
+        const user1 = await User.findByPk(id, {
+            attributes: ["id", "email"] // You can also add other fields if needed
+          });
+        return res.status(200).json(user1)
     } catch (error) {
         return res.status(400).json({error:error.message})
     }
